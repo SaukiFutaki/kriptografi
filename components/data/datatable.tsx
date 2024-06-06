@@ -32,9 +32,9 @@ export async function TableDemo() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.map((row) => (
+        {data.map((row, index) => (
           <TableRow key={row.id}>
-            <TableCell>{row.id}</TableCell>
+            <TableCell>{index + 1} </TableCell>
             <TableCell>{row.plainText}</TableCell>
             <TableCell>{row.encriptedText}</TableCell>
             <TableCell>{row.descriptedText}</TableCell>
