@@ -56,7 +56,7 @@ export default function DecryptForm() {
                     Pesan
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="wleowleowleo" {...field} />
+                  <Input placeholder="wleowleowleo" {...field} disabled={isPending}/>
                 </FormControl>
                 <FormDescription>
                     Masukan pesan yang ingin didekripsi
@@ -77,6 +77,7 @@ export default function DecryptForm() {
                     placeholder="Enter key"
                     value={field.value}
                     onChange={(e) => field.onChange(Number(e.target.value))}
+                    disabled={isPending}
                   />
                 </FormControl>
                 <FormDescription>
