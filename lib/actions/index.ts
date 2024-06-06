@@ -4,8 +4,11 @@ import { prisma } from "./../db/prisma";
 import { encrypt, decrypt } from "../caesarchipper";
 import { messageSchema } from "@/schema/message";
 import { z } from "zod";
+import { revalidatePath } from "next/cache";
 
-export const saveMessage = async (values: z.infer<typeof messageSchema>): Promise<MessageResponse> => {
+export const encryptMessage = async (
+  values: z.infer<typeof messageSchema>
+): Promise<MessageResponse> => {
   const validateFields = messageSchema.safeParse(values);
 
   if (!validateFields.success) {
@@ -23,10 +26,11 @@ export const saveMessage = async (values: z.infer<typeof messageSchema>): Promis
       data: {
         plainText: text,
         encriptedText: encryptedText,
-        descriptedText: text,
+
         key,
       },
     });
+    revalidatePath("/");
     return {
       success: true,
       text: encryptedText,
@@ -41,7 +45,9 @@ export const saveMessage = async (values: z.infer<typeof messageSchema>): Promis
   }
 };
 
-export const decryptMessage = async (values: z.infer<typeof messageSchema>): Promise<MessageResponse> => {
+export const decryptMessage = async (
+  values: z.infer<typeof messageSchema>
+): Promise<MessageResponse> => {
   const validateFields = messageSchema.safeParse(values);
 
   if (!validateFields.success) {
@@ -56,22 +62,14 @@ export const decryptMessage = async (values: z.infer<typeof messageSchema>): Pro
 
   try {
     // Assuming the text being decrypted is already stored in the database
-    const message = await prisma.message.create({
-     data : {
+    await prisma.message.create({
+      data: {
         plainText: text,
-        encriptedText: text,
         descriptedText: decryptedText,
         key,
-     }
+      },
     });
-
-    if (!message) {
-      return {
-        success: false,
-        error: "No matching encrypted message found",
-      };
-    }
-
+    revalidatePath("/");
     return {
       success: true,
       text: decryptedText,
@@ -92,4 +90,5 @@ export const deleteMessage = async (id: number) => {
       id,
     },
   });
+  revalidatePath("/");
 };

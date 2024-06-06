@@ -11,26 +11,24 @@ import {
 import { getAllData } from "@/lib/actions/getData";
 import { deleteMessage } from "@/lib/actions/index";
 import ButtonDelete from "./csr";
+import dynamic from "next/dynamic";
+
+const NoSSR = dynamic(() => import("@/components/data/csr"), { ssr: false });
 
 export async function TableDemo() {
   const data = await getAllData();
 
   return (
     <Table>
-      <TableCaption>A list of your recent invoices.</TableCaption>
+      <TableCaption>Caesar Chipper Table</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">No</TableHead>
+          <TableHead className="w-[10px]">No</TableHead>
           <TableHead>plaintext</TableHead>
-          <TableHead>
-            Encrypted Text
-          </TableHead>
-          <TableHead className="text-right">
-            Key
-          </TableHead>
-          <TableHead className="text-right">
-            action
-          </TableHead>
+          <TableHead>Enkripsi Text</TableHead>
+          <TableHead>Deskripsi Text</TableHead>
+          <TableHead className="">Key</TableHead>
+          <TableHead className="">action</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -39,10 +37,12 @@ export async function TableDemo() {
             <TableCell>{row.id}</TableCell>
             <TableCell>{row.plainText}</TableCell>
             <TableCell>{row.encriptedText}</TableCell>
-            <TableCell className="text-right">{row.key}</TableCell>
-         
+            <TableCell>{row.descriptedText}</TableCell>
+            <TableCell>{row.key}</TableCell>
+            <TableCell>
+              <NoSSR id={row.id} />
+            </TableCell>
           </TableRow>
-
         ))}
       </TableBody>
     </Table>

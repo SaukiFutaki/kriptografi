@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { saveMessage, decryptMessage } from "@/lib/actions";
+import {  decryptMessage, encryptMessage } from "@/lib/actions";
 import { useState, useTransition } from "react";
 import { Loader, Loader2 } from "lucide-react";
 
@@ -34,7 +34,7 @@ export default function Demo() {
 
   async function handleSubmit(values: z.infer<typeof messageSchema>) {
     startTransition(() => {
-      saveMessage(values).then((response) => {
+      encryptMessage(values).then((response) => {
         setEncryptedMessage(response);
       });
     });

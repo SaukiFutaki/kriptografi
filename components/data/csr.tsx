@@ -1,7 +1,4 @@
 "use client";
-import React from "react";
-import { deleteMessage } from "@/lib/actions";
-import { Trash2 } from "lucide-react";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -10,19 +7,21 @@ import {
     AlertDialogDescription,
     AlertDialogFooter,
     AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-  } from "@/components/ui/alert-dialog"
+    AlertDialogTrigger
+} from "@/components/ui/alert-dialog";
+import { deleteMessage } from "@/lib/actions";
+import { Trash2 } from "lucide-react";
   
 
 interface Props {
   id: number;
 }
+ 
 
 export default function ButtonDelete({ id }: Props) {
     const handleSubmit = async (id: number) => {
         await deleteMessage(id);
-        console.log("deleted");
+      
     };
     return (
         <div>

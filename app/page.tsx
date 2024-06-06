@@ -8,8 +8,13 @@ export default async function Home() {
 
 
   return (
-   <div className="flex justify-center items-center h-screen ">
-      <Tabshome/>
-   </div>
+    <div>
+      <div className="flex justify-center items-center py-20">
+        <Tabshome />
+      </div>
+      <div className="px-20 py-2">
+        <TableDemo />
+      </div>
+    </div>
   );
 }
