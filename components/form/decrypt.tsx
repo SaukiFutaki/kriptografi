@@ -19,8 +19,8 @@ import { saveMessage, decryptMessage } from "@/lib/actions";
 import { useState, useTransition } from "react";
 import { Loader, Loader2 } from "lucide-react";
 
-export default function Demo() {
-  const [encryptedMessage, setEncryptedMessage] = useState<MessageResponse | null>(null);
+export default function DecryptForm() {
+ 
   const [decryptedMessage, setDecryptedMessage] = useState<MessageResponse | null>(null);
   const [isPending, startTransition] = useTransition();
   
@@ -32,13 +32,7 @@ export default function Demo() {
     },
   });
 
-  async function handleSubmit(values: z.infer<typeof messageSchema>) {
-    startTransition(() => {
-      saveMessage(values).then((response) => {
-        setEncryptedMessage(response);
-      });
-    });
-  }
+
 
   async function handleDecrypt(values: z.infer<typeof messageSchema>) {
     startTransition(() => {
@@ -52,17 +46,21 @@ export default function Demo() {
   return (
     <div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(handleDecrypt)} className="space-y-8">
           <FormField
             control={form.control}
             name="text"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Message</FormLabel>
+                <FormLabel>
+                    Pesan
+                </FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter message" {...field} />
+                  <Input placeholder="wleowleowleo" {...field} />
                 </FormControl>
-                <FormDescription>Enter the message you want to encrypt or decrypt.</FormDescription>
+                <FormDescription>
+                    Masukan pesan yang ingin didekripsi
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -81,7 +79,9 @@ export default function Demo() {
                     onChange={(e) => field.onChange(Number(e.target.value))}
                   />
                 </FormControl>
-                <FormDescription>Enter a key between 0 and 25.</FormDescription>
+                <FormDescription>
+                    Masukan key yang diinginkan (0-25)
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -89,47 +89,28 @@ export default function Demo() {
           {isPending ? (
             <Button disabled>
               <Loader2 className="animate-spin" />
-              ...loading
+              loading
             </Button>
           ) : (
             <>
-              <Button type="submit">Encrypt</Button>
-              <Button type="button" onClick={form.handleSubmit(handleDecrypt)}>
-                Decrypt
+              <Button type="submit">
+                Deskripsi
               </Button>
             </>
           )}
         </form>
       </Form>
-      {encryptedMessage && (
-        <div>
-          {encryptedMessage.success ? (
-            <>
-              <h2>Encrypted Message</h2>
-              <p>{encryptedMessage.text}</p>
-              <p>Key: {encryptedMessage.key}</p>
-            </>
-          ) : (
-            <div>
-              <h2>Error</h2>
-              <p>{typeof encryptedMessage.error === 'string' ? encryptedMessage.error : 'Validation error'}</p>
-              {encryptedMessage.error && typeof encryptedMessage.error !== 'string' && (
-                <div>
-                  {encryptedMessage.error.text && <p>Text: {encryptedMessage.error.text.join(', ')}</p>}
-                  {encryptedMessage.error.key && <p>Key: {encryptedMessage.error.key.join(', ')}</p>}
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-      )}
       {decryptedMessage && (
-        <div>
+        <div className="pt-4">
           {decryptedMessage.success ? (
             <>
-              <h2>Decrypted Message</h2>
-              <p>{decryptedMessage.text}</p>
-              <p>Key: {decryptedMessage.key}</p>
+              <div className=" bg-emerald-500/15 p-3 rounded-md flex items-center gap-x-2 text-emerald-700">
+                <div className="flex flex-col">
+                  <span className="text-black underline">Hasil</span>
+                  <p>{decryptedMessage.text}</p>
+                  <p>Key: {decryptedMessage.key}</p>
+                </div>
+              </div>
             </>
           ) : (
             <div>
