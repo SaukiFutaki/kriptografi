@@ -29,6 +29,7 @@ export default function Demo() {
     defaultValues: {
       text: "",
       key: 0,
+      cipherType: "caesar",
     },
   });
 
@@ -82,6 +83,24 @@ export default function Demo() {
                   />
                 </FormControl>
                 <FormDescription>Enter a key between 0 and 25.</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="cipherType"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Cipher Type</FormLabel>
+                <FormControl>
+                  <select {...field}>
+                    <option value="caesar">Caesar Cipher</option>
+                    <option value="transposition">Transposition Cipher</option>
+                    <option value="substitution">Substitution Cipher</option>
+                  </select>
+                </FormControl>
+                <FormDescription>Select the type of cipher to use.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
