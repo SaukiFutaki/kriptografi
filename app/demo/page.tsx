@@ -1,10 +1,12 @@
-import Demo from '@/components/form/demo'
+
 import React from 'react'
 
 export default function Page() {
   return (
     <div>
-        <Demo />
+      <h1>
+        halo
+      </h1>
     </div>
   )
 }

@@ -26,7 +26,7 @@ export const encryptMessage = async (
       data: {
         plainText: text,
         encriptedText: encryptedText,
-
+        descriptedText: "-",
         key,
       },
     });
@@ -61,11 +61,12 @@ export const decryptMessage = async (
   const decryptedText = decrypt(text, key);
 
   try {
-    // Assuming the text being decrypted is already stored in the database
+    
     await prisma.message.create({
       data: {
         plainText: text,
         descriptedText: decryptedText,
+        encriptedText: "-",
         key,
       },
     });
