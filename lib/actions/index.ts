@@ -26,6 +26,7 @@ export const encryptMessage = async (
       data: {
         plainText: text,
         encriptedText: encryptedText,
+        descriptedText: "-",
 
         key,
       },
@@ -66,6 +67,7 @@ export const decryptMessage = async (
       data: {
         plainText: text,
         descriptedText: decryptedText,
+        encriptedText: "-",
         key,
       },
     });
