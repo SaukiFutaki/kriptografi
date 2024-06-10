@@ -52,7 +52,7 @@ export default function EncryptForm() {
               <FormItem>
                 <FormLabel>Pesan</FormLabel>
                 <FormControl>
-                  <Input placeholder="contoh wleowleo" {...field} disabled={isPending} />
+                  <Input placeholder="contoh wleowleo" {...field} />
                 </FormControl>
                 <FormDescription>
                   Masukan pesan yang ingin dienkripsi
@@ -73,7 +73,6 @@ export default function EncryptForm() {
                     placeholder="Enter key"
                     value={field.value}
                     onChange={(e) => field.onChange(Number(e.target.value))}
-                    disabled={isPending}
                   />
                 </FormControl>
                 <FormDescription>
